@@ -1,0 +1,23 @@
+{
+    "appKeys": {},
+    "capabilities": [
+        ""
+    ],
+    "companyName": "ste616@gmail.com",
+    "longName": "Sidereal Watchface",
+    "projectType": "native",
+    "resources": {
+        "media": []
+    },
+    "sdkVersion": "3",
+    "shortName": "Sidereal Watchface",
+    "targetPlatforms": [
+        "basalt"
+    ],
+    "uuid": "6db626a3-adb2-4df8-9d68-2be00fd4370e",
+    "versionLabel": "1.0",
+    "watchapp": {
+        "hiddenApp": true,
+        "watchface": true
+    }
+}

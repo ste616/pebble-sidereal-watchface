@@ -1,7 +1,9 @@
 {
-    "appKeys": {},
+    "appKeys": {
+        "LONGITUDE": 0
+    },
     "capabilities": [
-        ""
+        "configurable"
     ],
     "companyName": "ste616@gmail.com",
     "longName": "Sidereal Watchface",
@@ -12,9 +14,10 @@
     "sdkVersion": "3",
     "shortName": "Sidereal Watchface",
     "targetPlatforms": [
+        "aplite",
         "basalt"
     ],
-    "uuid": "6db626a3-adb2-4df8-9d68-2be00fd4370e",
+    "uuid": "8eb87eb8-1a51-40e3-8b4c-b04e7f7c1df5",
     "versionLabel": "1.0",
     "watchapp": {
         "hiddenApp": true,

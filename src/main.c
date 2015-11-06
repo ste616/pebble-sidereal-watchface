@@ -1,5 +1,7 @@
 #include <pebble.h>
 
+#define KEY_LONGITUDE 0
+
 static Window *s_my_window;
 static TextLayer *s_local_time, *s_local_label, *s_local_dst, *s_local_date;
 static TextLayer *s_utc_label, *s_utc_time, *s_mjd;
@@ -91,7 +93,14 @@ static double mjd2gmst(double mjd) {
 
 // Calculate the sidereal time (LST).
 static double gmst2lst(double gmst) {
-  double longitude = 149.5501388 / 360.0; // ATCA longitude in turns.
+  // Get the longitude from our configuration.
+  double longitude;
+  if (persist_exists(KEY_LONGITUDE)) { 
+    persist_read_data(KEY_LONGITUDE, &longitude, sizeof(double));
+  } else {
+    longitude = 0.0; // 149.5501388 / 360.0; // ATCA longitude in turns.
+  }
+  longitude /= 360.0; // Convert degrees to turns.
   double lst = gmst + longitude;
   while (lst > 1) {
     lst -= 1;
@@ -160,6 +169,11 @@ static void main_window_load(Window *window) {
   
   // Make the segments with our segment maker.
   // The Local time segment label (which is "L").
+#ifdef PBL_SDK_2
+  int GColorYellow, GColorPastelYellow, GColorMintGreen, GColorPictonBlue;
+  GColorYellow=GColorWhite;
+  GColorPastelYellow=GColorMintGreen=GColorPictonBlue=GColorClear;
+#endif
   add_window_element(window_layer, &s_local_label, GColorBlack, GColorWhite,
                      fonts_get_system_font(FONT_KEY_BITHAM_30_BLACK), GTextAlignmentCenter,
                      0, 0, label_width, local_panel_height);
@@ -217,6 +231,17 @@ static void main_window_unload(Window *window) {
   
 }
 
+static void inbox_received_handler(DictionaryIterator *iter, void *context) {
+  // Get user-set configuration. 
+  Tuple *longitude_t = dict_find(iter, KEY_LONGITUDE);
+  if (longitude_t) {
+    double lng = (double)longitude_t->value->int32 / 1e7;
+    persist_write_data(KEY_LONGITUDE, &lng, sizeof(double));
+    // Do an immediate update of the time.
+    update_time();
+  }
+}
+
 static void handle_init(void) {
   s_my_window = window_create();
 
@@ -226,6 +251,9 @@ static void handle_init(void) {
   });
   
   window_stack_push(s_my_window, true);
+  
+  app_message_register_inbox_received(inbox_received_handler);
+  app_message_open(app_message_inbox_size_maximum(), app_message_outbox_size_maximum());
 }
 
 static void handle_deinit(void) {

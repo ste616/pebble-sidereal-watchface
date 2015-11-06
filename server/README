@@ -1,0 +1,14 @@
+This is the stuff installed on the astrowebservices.com server to support the configuration
+of the Sidereal Watchface Pebble watch face.
+
+In the www directory is the web page and JS presented to the user when they ask for the
+configuration. It requires the normal Slate CSS, JS and fonts in the directory; this is not
+included here since no alterations to the Slate package are required. The configuration JS
+requires Dojo 1.10 to be available and configured properly for AMD.
+
+In the cgi directory is the Perl CGI script that queries for the location that the user
+supplies and returns the longitudes. The .bz2 file is the list of locations that it will
+search, but it needs to be decompressed before the script can use it.
+
+Jamie Stevens - 2015 Nov 06
+

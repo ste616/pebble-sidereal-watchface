@@ -6,6 +6,7 @@
         "configurable"
     ],
     "companyName": "ste616@gmail.com",
+    "enableMultiJS": false,
     "longName": "Sidereal Watchface",
     "projectType": "native",
     "resources": {
@@ -14,13 +15,12 @@
     "sdkVersion": "3",
     "shortName": "Sidereal Watchface",
     "targetPlatforms": [
-        "aplite",
-        "basalt"
+        "basalt",
+        "chalk"
     ],
     "uuid": "8eb87eb8-1a51-40e3-8b4c-b04e7f7c1df5",
-    "versionLabel": "1.0",
+    "versionLabel": "1.2",
     "watchapp": {
-        "hiddenApp": true,
         "watchface": true
     }
 }
